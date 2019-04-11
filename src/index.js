@@ -1,36 +1,40 @@
 let db = require('./config/anexo_01')
-let express = require('express');
-let request = require('request');
+const express = require('express');
+let Path = require('path')
 let fs = require('fs');
-let app = express();
+let axios = require('axios')
+const app = express();
 
-   new Promise ((reject, resolve)=>{
+function image(){
 
-        request("https://devmissionbr.s3.us-west-2.amazonaws.com/photos/d00ec210-9fe7-11e8-bc3b-4d2cc244f57b/original/529f6fa0-9fce-11e8-bc3b-4d2cc244f57b1534269004323.png", (err, response, body)=>{
+    db.images.forEach((img) =>{
 
-        if(err){
-            reject(`Ocorreu um erro no download do arquivo ${err}`)
-        }
-        
-        resolve(response)
-        
-        })
+        let path = Path.resolve(__dirname, 'image', `imagem${Math.floor(Math.random() * (1000 - 1))}.png`)
+        let writer = fs.createWriteStream(path)
+  
+            axios({
+                url: img,
+                method: 'GET',
+                responseType: 'stream'
+            })
+            .then(res => res.data.pipe(writer))
+            .catch((err)=>{
+                console.log(err);
+            })
+
+            return new Promise((resolve, reject) => {
+                writer.on('finish', resolve)
+                writer.on('error', reject)
+            })
 
     })
-    .then( res => )
-    .catch((err)=>{
-        console.log(err);
-    });
+          
+}
+
+image();
 
 
-/* request("https://devmissionbr.s3.us-west-2.amazonaws.com/photos/d00ec210-9fe7-11e8-bc3b-4d2cc244f57b/original/529f6fa0-9fce-11e8-bc3b-4d2cc244f57b1534269004323.png",
-     (err, response, body)=>{
-     }).pipe(fs.writeFile("out.png", ));
-
-
-*/
 const PORT = process.env.PORT || 3000;
-
 
 app.listen(PORT,  ()=>{
     console.info(`Servidor foi iniciado na porta: ${PORT}.`);
