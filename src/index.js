@@ -1,15 +1,20 @@
+'use strict'
 // JSON Module
 let db = require('./config/anexo_01')
+
+//Class Module
+let DownloadFile = require('./class/DownloadImage');
 
 // NodeJS Module
 const express = require('express');
 const app = express();
-const Path = require('path')
-const fs = require('fs');
-const axios = require('axios')
-const AdmZip = require('adm-zip');
-const zip = new AdmZip();
 
+
+
+let download = new DownloadFile(db.images);
+
+
+/*
 function image(){
 
     let count = 1;  
@@ -41,7 +46,7 @@ function image(){
             })
 
     })
-          
+ 
 }
 
 function zip1(){
@@ -61,8 +66,8 @@ function zip1(){
 
 image();
 
-zip1();
 
+*/
 
 /*fs.readdir("./img", (err, files)=>{
     console.log(err);
