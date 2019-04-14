@@ -1,8 +1,14 @@
+'use strict'
+
 const axios = require('axios')
 const Path = require('path')
 const fs = require('fs');
 const AdmZip = require('adm-zip');
 const zip = new AdmZip();
+
+let dirFiles = "./files/";
+let dirImage = "./files/image/";
+let dirZip = "./files/zip/";
 
 module.exports = class DownloadImage {
 
@@ -12,18 +18,20 @@ module.exports = class DownloadImage {
         this.createFile(this.arrayImage);
     }
 
-createFile(arrayImage){ // main method to create Files
+createFile(arrayImage){ // Main method to create files
+
+    this.createDir();
 
     let promises = [];
 
-    arrayImage.forEach( async(urlString, index) => {
+    arrayImage.forEach((urlString, index) => {
         
-        let path = Path.resolve('./files/image', `imagem${index}.png`)
+        let path = Path.resolve(dirImage, `imagem${index}.png`)
         let createStream = fs.createWriteStream(path);
         
-        await promises.push(new Promise((resolve, reject) => {
+        promises.push(new Promise( async(resolve, reject) => {
 
-            axios({
+            await axios({
                 url: urlString,
                 method: 'GET',
                 responseType: 'stream'
@@ -40,17 +48,51 @@ createFile(arrayImage){ // main method to create Files
 
     Promise.all(promises)
         .then(() => this.compressZip())
+        .then(() => this.deleteFiles())
         .catch(err => console.log(err))
  
 } // end createFile();
 
-compressZip() { // method to compress image
+compressZip() { // Method to compress image
 
-    let pathToZip = './files/zip/image.zip';
+    let pathToZip = (`${dirZip}image.zip`);
     
-    zip.addLocalFolder('./files/image');
+    zip.addLocalFolder(dirImage);
     
-    zip.writeZip(pathToZip, (error) => console.log(error));
+    zip.writeZip(pathToZip, error => console.log(error));
+
+}
+
+createDir(){ // Method to create all dir necessary to project if doenst exists
+
+    if(!fs.existsSync(dirFiles)) {
+
+        fs.mkdirSync(dirFiles)
+    }
+
+    if(!fs.existsSync(dirImage)) {
+
+        fs.mkdirSync(dirImage)
+    }
+
+    if (!fs.existsSync(dirZip)) {
+
+        fs.mkdirSync(dirZip)
+    }
+
+}
+
+deleteFiles(){ // Method to delete files of image folder. Is optional and does not impair the flow of code 
+
+    fs.readdir(dirImage, (err, files) => {
+
+        console.log(err);
+    
+        for(let file of files){
+    
+            fs.unlinkSync(`${dirImage}${file}`)
+        }
+    })
 
 }
 
