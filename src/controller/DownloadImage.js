@@ -4,68 +4,54 @@ const fs = require('fs');
 const AdmZip = require('adm-zip');
 const zip = new AdmZip();
 
-module.exports = class DownloadImage{
+module.exports = class DownloadImage {
 
-    constructor(arrayImage){
+    constructor(arrayImage) {
         this.arrayImage = arrayImage;
 
         this.createFile(this.arrayImage);
     }
 
-createFile(arrayImage){ // método para criar o arquivo
+createFile(arrayImage){ // main method to create Files
 
-    let count = 1;  
-    
-    arrayImage.forEach((urlString) =>{
+    let promises = [];
+
+    arrayImage.forEach( async(urlString, index) => {
         
-        let path = Path.resolve('./assents/image', `imagem${count}.png`)
+        let path = Path.resolve('./files/image', `imagem${index}.png`)
         let createStream = fs.createWriteStream(path);
+        
+        await promises.push(new Promise((resolve, reject) => {
 
-        count++;
-  
             axios({
                 url: urlString,
                 method: 'GET',
                 responseType: 'stream'
             })
             .then(res => res.data.pipe(createStream))
-            .catch((err)=>{
-                console.log(err);
-            })
+            .catch(err => console.log(err))
 
-            new Promise((resolve, reject) => {
-                createStream.on('finish', ()=>{
-                    resolve()
-                })
-                createStream.on('error', ()=>{
-                    reject()
-                })
-            }).catch((err)=>{
-                console.log(err);
-            })
+            createStream.on('finish', () => resolve());
+            createStream.on('error', () => reject());
 
-    })
+        })) // end Promise
+               
+    }); // end forEach
 
-    setTimeout(()=>{
-
-        this.compressZip()
-
-    },10000)
+    Promise.all(promises)
+        .then(() => this.compressZip())
+        .catch(err => console.log(err))
  
-} // fim do método createFile
+} // end createFile();
 
-compressZip(){ // método para compactar o arquivo
+compressZip() { // method to compress image
 
-    let pathToZip = './assents/zip/image.zip';
+    let pathToZip = './files/zip/image.zip';
     
-    zip.addLocalFolder('./assents/image');
+    zip.addLocalFolder('./files/image');
     
-    zip.writeZip(pathToZip, (error)=>{
-    
-        console.log(error)
-    });
+    zip.writeZip(pathToZip, (error) => console.log(error));
 
 }
-
 
 }
