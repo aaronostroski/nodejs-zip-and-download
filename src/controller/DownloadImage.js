@@ -21,7 +21,7 @@ module.exports = class DownloadImage {
 
     }
 
-createFile(arrayImage){ // Main method to create files
+createFile(arrayImage) { // Main method to create files
 
     this.createDir();
 
@@ -52,27 +52,37 @@ createFile(arrayImage){ // Main method to create files
     Promise.all(promises)
         .then(() => this.compressZip())
         .then(() => this.deleteFiles())
-        .catch(error => console.log(error))
+        .catch(error => console.log(error));
  
 } // end createFile();
 
 compressZip() { // Method to compress image
 
     let pathToZip = (`${dirZip}image.zip`);
+
+    try {
+
+        zip.addLocalFolder(dirImage);
+
+    } catch (error) {
+
+        console.log(error);
+
+    }  finally {
+
+        zip.writeZip(pathToZip, error => {
+
+            if(error) return console.log(err);
     
-    zip.addLocalFolder(dirImage);
+            console.log(`Zip criado na pasta: "${pathToZip}"`)
     
-    zip.writeZip(pathToZip, error => {
+        });
 
-        if(error) return console.log(err);
-
-        console.log(`Zip criado na pasta: "${pathToZip}"`)
-
-    });
+    }    
 
 }
 
-createDir(){ // Method to create all dir necessary to project if doenst exists
+createDir() { // Method to create all dir necessary to project if doenst exists
 
     if(!fs.existsSync(dirFiles)) {
 
@@ -94,7 +104,7 @@ createDir(){ // Method to create all dir necessary to project if doenst exists
 
 }
 
-deleteFiles(){ // Method to delete files of image folder. Is optional and does not impair the flow of code 
+deleteFiles() { // Method to delete files of image folder. Is optional and does not impair the flow of code 
 
     fs.readdir(dirImage, (error, files) => {
 

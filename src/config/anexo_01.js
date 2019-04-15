@@ -1,5 +1,4 @@
 module.exports = 
-
 {
   "images": [
     "https://devmissionbr.s3.us-west-2.amazonaws.com/photos/d00ec210-9fe7-11e8-bc3b-4d2cc244f57b/original/529f6fa0-9fce-11e8-bc3b-4d2cc244f57b1534269004323.png",
@@ -13,4 +12,4 @@ module.exports =
     "https://devmissionbr.s3.us-west-2.amazonaws.com/photos/3b6e2ff0-bdd9-11e8-8948-0582190297ae/original/9f10c280-bd4c-11e8-8948-0582190297ae1537889771894.png",
     "https://devmissionbr.s3.us-west-2.amazonaws.com/photos/3b6e2ff0-bdd9-11e8-8948-0582190297ae/original/9f10c280-bd4c-11e8-8948-0582190297ae1537889771012.png"
   ]
-};
+}

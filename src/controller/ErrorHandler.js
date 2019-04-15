@@ -3,7 +3,7 @@ module.exports = class ErrorHandler {
     static handleError (error, url) {
 
         if (error.response) {
-            console.log(`Parece que houve um problema ao acessar a URL: ${url}. Error code: ${error.response.status}.`);
+            console.log(`Parece que houve um problema ao acessar a URL: ${url}. Error code: ${error.response.status}.}`);
 
           } else if (error.request) {
             
