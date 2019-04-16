@@ -7,9 +7,9 @@ const fs = require('fs');
 const AdmZip = require('adm-zip');
 const zip = new AdmZip();
 
-let dirFiles = "src/files/";
-let dirImage = "src/files/image/";
-let dirZip = "src/files/zip/";
+const dirFiles = "src/files/";
+const dirImage = "src/files/image/";
+const dirZip = "src/files/zip/";
 
 module.exports = class DownloadImage {
 

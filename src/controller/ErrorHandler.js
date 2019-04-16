@@ -15,7 +15,7 @@ module.exports = class ErrorHandler {
 
           }
 
-          console.log(`Error: ${error.message}`);
+        console.log(`Error: ${error.message}`);
 
     }
 }
