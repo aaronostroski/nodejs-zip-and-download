@@ -2,7 +2,7 @@
 > Aplicação server-side com NodeJs.
 ### Objetivo
 
-> O objetivo desse desafio foi construir uma aplicação onde o **Endpoint** deve baixar essas imagens, compactá-las em um arquivo e permitir o download desse arquivo.
+> O objetivo desse desafio foi construir uma aplicação onde o **Endpoint** deve baixar essas [imagens](src/config/anexo_01.js), compactá-las em um arquivo e permitir o download desse arquivo.
 
 ### Checklist
 
