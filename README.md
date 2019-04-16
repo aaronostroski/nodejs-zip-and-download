@@ -15,6 +15,13 @@
 > * [Node.js](https://nodejs.org/en/) >= versão 8
 > * [npm](https://www.npmjs.com/get-npm) >= versão 6
 
+> Para verificar se foram instalado os requisitos, basta digitar os seguintes comandos no seu prompt de commando:
+
+```sh
+ node -v
+ npm -v
+```
+
 ### Pacotes utilizados para fazer o projeto
 
 > * [express](https://github.com/expressjs/express)
@@ -24,7 +31,7 @@
 
 ### Como instalar e iniciar o projeto
 
-> Baixe o zip do projeto ou clone para sua área de trabalho e navegue até onde se encontra pasta do projeto através do **Node.js prompt command**. Em seguida escreva as instruções:
+> Baixe o zip do projeto ou clone para sua área de trabalho e navegue até onde se encontra a pasta do projeto através do **Node.js prompt command**. Em seguida escreva as instruções:
 
 ```sh
  cd nodejs-prova-backend
