@@ -11,6 +11,7 @@ const dirFiles = "src/files/";
 const dirImage = "src/files/image/";
 const dirZip = "src/files/zip/";
 
+
 module.exports = class DownloadImage {
 
     constructor(arrayImage) {

@@ -1,0 +1,22 @@
+{
+    "parser": "@typescript-eslint'/parser",
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "plugins": ["@typscript-eslint"],
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "standard"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "rules": {
+    }
+}
