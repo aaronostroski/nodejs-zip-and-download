@@ -19,7 +19,7 @@
   "homepage": "https://github.com/aaronostroski/nodejs-prova-backend#readme",
   "dependencies": {
     "adm-zip": "^0.4.13",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "express": "^4.16.4",
     "path": "^0.12.7",
     "typescript": "^3.5.2"
